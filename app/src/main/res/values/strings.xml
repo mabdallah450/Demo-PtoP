@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PtoP</string>
+    <string name="my_rooms">My Rooms</string>
+    <string name="add_room">Add Room</string>
+    <string name="roomlogo">RoomLogo</string>
+    <string name="send">Send</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="register_user">Register User</string>
+    <string name="already_registered">Already Registered? Signin here</string>
+    <string name="user_login">User Login</string>
+    <string name="not_have">Not have an account? Signup here</string>
+    <string name="user_registration">User Registration</string>
+    <string-array name="list">
+        <item>Item</item>
+        <item>Item</item>
+        <item>Item</item>
+        <item>Item</item>
+        <item>Item</item>
+        <item>Item</item>
+        <item>Item</item>
+        <item>Item</item>
+    </string-array>
+</resources>
