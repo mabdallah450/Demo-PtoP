@@ -1,11 +1,55 @@
 <resources>
 
-    <!-- Base application theme. -->
+<!--
+    &lt;!&ndash; Base application theme. &ndash;&gt;
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+
+    </style>
+-->
+
+
+    <style name="ButtonAppTheme" parent="android:Widget.Holo.Light.Button">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
+    </style>
+
+    <style name="ImageButtonAppTheme" parent="android:Widget.Holo.Light.ImageButton">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
+    </style>
+
+
+    <style name="AppTheme" parent="@style/_AppTheme" />
+
+    <style name="_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
+
+        <item name="android:buttonStyle">@style/ButtonAppTheme</item>
+
+        <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
+
     </style>
+
+    <style name="authEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/activity_horizontal_margin</item>
+        <item name="android:textColorHint">@color/lightGray</item>
+        <item name="android:textSize">17sp</item>"
+    </style>
+
+    <style name="authContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/auth_vertical_margin</item>
+        <item name="android:layout_marginRight">@dimen/auth_vertical_margin</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 
 </resources>

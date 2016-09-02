@@ -4,13 +4,18 @@
     <string name="add_room">Add Room</string>
     <string name="roomlogo">RoomLogo</string>
     <string name="send">Send</string>
-    <string name="enter_your_email">Enter your email</string>
-    <string name="enter_your_password">Enter your password</string>
-    <string name="register_user">Register User</string>
+    <string name="enter_your_email">Email</string>
+    <string name="enter_your_password">Password</string>
     <string name="already_registered">Already Registered? Signin here</string>
-    <string name="user_login">User Login</string>
+    <string name="welcome">Welcome to PtoP</string>
     <string name="not_have">Not have an account? Signup here</string>
-    <string name="user_registration">User Registration</string>
+    <string name="thanks">Thanks for installing PtoP - let\'s get started</string>
+    <string name="app_logo">app logo</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgotPasswordIns">Please enter your Email address, and we\'ll send you a code to confirm this email is yours.</string>
+    <string name="confirm">Confirm</string>
     <string-array name="list">
         <item>Item</item>
         <item>Item</item>

@@ -8,25 +8,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.security.PrivateKey;
+import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button registerBtn;
-    private EditText emailEt;
-    private EditText passwordEt;
-    private TextView signinTv;
+    @BindView(R.id.registerBtn)
+    Button registerBtn;
+    @BindView(R.id.emailEt)
+    EditText emailEt;
+    @BindView(R.id.passwordEt)
+    EditText passwordEt;
+    @BindView(R.id.confirmPasswordEt)
+    EditText confirmPasswordEt;
+    @BindView(R.id.signinTv)
+    TextView signinTv;
+
+
+    private String email, password, confirmPassword;
 
     private ProgressDialog progressDialog;
 
@@ -35,22 +49,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null){
+        if (firebaseAuth.getCurrentUser() != null) {
             finish();
             startActivity(new Intent(this, RoomListActivity.class));
         }
 
-        registerBtn = (Button) findViewById(R.id.registerBtn);
-        emailEt = (EditText) findViewById(R.id.emailEt);
-        passwordEt = (EditText) findViewById(R.id.passwordEt);
-        signinTv = (TextView) findViewById(R.id.signinTv);
-
         progressDialog = new ProgressDialog(this);
 
         passwordEt.setTypeface(Typeface.DEFAULT);
+        confirmPasswordEt.setTypeface(Typeface.DEFAULT);
 
         registerBtn.setOnClickListener(this);
         signinTv.setOnClickListener(this);
@@ -58,10 +73,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(view == registerBtn){
+        if (view == registerBtn) {
             registerUser();
         }
-        if (view == signinTv){
+        if (view == signinTv) {
             //sign in activity
             finish();
             startActivity(new Intent(this, LoginActivity.class));
@@ -69,17 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerUser() {
-        String email = emailEt.getText().toString().trim();
-        String password = passwordEt.getText().toString().trim();
+        email = emailEt.getText().toString().trim();
+        password = passwordEt.getText().toString().trim();
+        confirmPassword = confirmPasswordEt.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email)){
-            emailEt.setError("Please enter email");
-            return;
-        }
-        if (TextUtils.isEmpty(password)){
-            passwordEt.setError("Please enter password");
-            return;
-        }
+        if (!validateInputs()) return;
+
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
 
@@ -88,15 +98,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.cancel();
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             finish();
                             startActivity(new Intent(getApplicationContext(), RoomListActivity.class));
-                        }
-                        else{
+                        } else {
                             Toast.makeText(MainActivity.this, "Could not register... Please try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    boolean validateInputs() {
+        boolean valid = true;
+        if (email.isEmpty()) {
+            emailEt.setError("Please enter email");
+            valid = false;
+        }
+        if (password.isEmpty()) {
+            passwordEt.setError("Please enter password");
+            valid = false;
+        }
+        if (password.length() < 6 && !password.isEmpty()) {
+            passwordEt.setError("Password is too short");
+            valid = false;
+        }
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordEt.setError("Please enter password");
+            valid = false;
+        }
+        if (valid && !confirmPassword.equals(password)) {
+            confirmPasswordEt.setError("Passwords do not match");
+            valid = false;
+        }
+        return valid;
     }
 
 }
